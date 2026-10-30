@@ -1,0 +1,32 @@
+{
+    "name": "jwt-token-security",
+    "version": "1.0.0",
+    "description": "A login server with three JWT flaws, an exploit for each, and a fixed server where they fail",
+    "private": true,
+    "type": "module",
+    "engines": {
+        "node": ">=18"
+    },
+    "scripts": {
+        "start:vulnerable": "tsx src/index.ts vulnerable",
+        "start:fixed": "tsx src/index.ts fixed",
+        "test:baseline": "tsx tests/baseline.test.ts",
+        "test:none": "tsx tests/alg-none.test.ts",
+        "test:secret": "tsx tests/weak-secret.test.ts",
+        "test:expiry": "tsx tests/no-expiry.test.ts",
+        "test": "tsx tests/baseline.test.ts && tsx tests/alg-none.test.ts && tsx tests/weak-secret.test.ts && tsx tests/no-expiry.test.ts",
+        "lint": "biome check ."
+    },
+    "dependencies": {
+        "express": "^4.21.2",
+        "jsonwebtoken": "^9.0.2"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "1.9.4",
+        "@types/express": "^4.17.21",
+        "@types/jsonwebtoken": "^9.0.9",
+        "@types/node": "^22.15.0",
+        "tsx": "^4.19.4",
+        "typescript": "^5.8.3"
+    }
+}

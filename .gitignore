@@ -1,0 +1,11 @@
+node_modules/
+*.log
+
+# Local only: course docs, checkpoint submission, editor and Claude Code settings
+.docs/
+.claude/
+.cursor/
+
+# OS files
+.DS_Store
+Thumbs.db
