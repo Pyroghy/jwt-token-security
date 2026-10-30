@@ -1,0 +1,816 @@
+/* IBM Plex fonts (SIL Open Font License). Kept local so the page works offline. */
+@font-face {
+    font-family: "IBM Plex Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("fonts/ibm-plex-sans-400.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "IBM Plex Sans";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("fonts/ibm-plex-sans-500.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "IBM Plex Sans";
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url("fonts/ibm-plex-sans-600.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "IBM Plex Mono";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("fonts/ibm-plex-mono-400.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "IBM Plex Mono";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("fonts/ibm-plex-mono-500.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "IBM Plex Mono";
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url("fonts/ibm-plex-mono-600.woff2") format("woff2");
+}
+
+:root {
+    --bg: #111317;
+    --panel: #16191e;
+    --code-bg: #1b1f25;
+    --line: #2a2f37;
+    --text: #dde2e8;
+    --muted: #98a1ad;
+    --faint: #69727f;
+    --seg-header: #e57d95;
+    --seg-payload: #b39af0;
+    --seg-signature: #5db8de;
+    --accepted: #ec6c53;
+    --rejected: #5cc28d;
+    --button: #dde2e8;
+    --button-hover: #ffffff;
+    --button-text: #111317;
+    --scroll-thumb: #353b45;
+    --scroll-thumb-hover: #4a515d;
+    --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+    color-scheme: dark;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-color: var(--scroll-thumb) var(--bg);
+}
+
+.table-wrap,
+.code-block pre,
+.json {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) transparent;
+}
+
+/* Styles scrollbars in browsers that ignore scrollbar-color. */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background: var(--scroll-thumb) padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scroll-thumb-hover) padding-box;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+body {
+    --mode: var(--muted);
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+body[data-mode="vulnerable"] {
+    --mode: var(--accepted);
+}
+
+body[data-mode="fixed"] {
+    --mode: var(--rejected);
+}
+
+a {
+    color: inherit;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--faint);
+}
+
+a:hover {
+    text-decoration-color: var(--text);
+}
+
+code,
+pre {
+    font-family: var(--mono);
+}
+
+.notes code,
+.hint code,
+.table-note code {
+    padding: 1px 5px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--code-bg);
+    font-size: 0.88em;
+}
+
+:focus-visible {
+    outline: 2px solid var(--seg-signature);
+    outline-offset: 2px;
+}
+
+svg.lucide {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+#field {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+.page {
+    position: relative;
+    z-index: 1;
+    max-width: 980px;
+    margin: 0 auto;
+    padding-block: 48px 96px;
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+
+.page-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+}
+
+h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.byline {
+    margin: 6px 0 0;
+    color: var(--muted);
+}
+
+.server-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.server-status strong {
+    color: var(--mode);
+    font-weight: 600;
+}
+
+.results {
+    padding-top: 36px;
+}
+
+.section-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h2 .num {
+    margin-right: 6px;
+    color: var(--faint);
+    font-weight: 500;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+}
+
+/* Keeps column widths fixed so the table doesn't shift when results fill in. */
+table {
+    width: 100%;
+    min-width: 720px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.col-expect {
+    width: 190px;
+}
+
+.col-result {
+    width: 170px;
+}
+
+th,
+td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    white-space: nowrap;
+}
+
+th {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+td:first-child {
+    white-space: normal;
+}
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.expect {
+    color: var(--faint);
+    font-family: var(--mono);
+}
+
+body[data-mode="vulnerable"] .col-vulnerable,
+body[data-mode="fixed"] .col-fixed {
+    background: color-mix(in srgb, var(--mode) 7%, transparent);
+    color: var(--text);
+}
+
+.result {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--faint);
+    font-family: var(--mono);
+}
+
+.result[data-tone="running"] {
+    color: var(--seg-signature);
+}
+
+.result[data-tone="ok"] {
+    color: var(--text);
+}
+
+.result[data-tone="accepted"] {
+    color: var(--accepted);
+}
+
+.result[data-tone="rejected"] {
+    color: var(--rejected);
+}
+
+.result[data-tone="running"] svg,
+.btn .when-running svg {
+    animation: spin 0.8s linear infinite;
+}
+
+.table-note {
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 6px;
+    background: var(--button);
+    color: var(--button-text);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: var(--button-hover);
+}
+
+.btn-quiet {
+    background: transparent;
+    box-shadow: inset 0 0 0 1px var(--line);
+    color: var(--text);
+}
+
+.btn-quiet:hover {
+    background: var(--code-bg);
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.btn.is-running:disabled {
+    opacity: 1;
+    cursor: progress;
+}
+
+.btn .when-idle,
+.btn .when-running {
+    display: inline-flex;
+}
+
+.btn .when-running,
+.btn.is-running .when-idle {
+    display: none;
+}
+
+.btn.is-running .when-running {
+    display: inline-flex;
+}
+
+.test {
+    margin-top: 48px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 16px;
+}
+
+.test h2 {
+    margin-bottom: 14px;
+}
+
+.notes {
+    display: grid;
+    gap: 4px;
+    max-width: 72ch;
+    margin: 0;
+    padding-left: 20px;
+}
+
+.notes li::marker {
+    color: var(--faint);
+}
+
+.code-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.code-block {
+    overflow: hidden;
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--code-bg);
+}
+
+body[data-mode="vulnerable"] .code-block[data-side="vulnerable"],
+body[data-mode="fixed"] .code-block[data-side="fixed"] {
+    border-color: color-mix(in srgb, var(--mode) 50%, var(--line));
+}
+
+.code-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 12px;
+}
+
+.code-label .running {
+    display: none;
+    color: var(--mode);
+}
+
+body[data-mode="vulnerable"] .code-block[data-side="vulnerable"] .running,
+body[data-mode="fixed"] .code-block[data-side="fixed"] .running {
+    display: inline;
+}
+
+.code-block pre {
+    margin: 0;
+    padding: 12px;
+    overflow-x: auto;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.k {
+    color: var(--seg-payload);
+}
+
+.s {
+    color: var(--seg-signature);
+}
+
+.c {
+    color: var(--faint);
+}
+
+.run-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    margin-top: 24px;
+}
+
+.hint {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.output {
+    margin-top: 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+}
+
+.out-block {
+    padding: 14px 16px;
+    border-top: 1px solid var(--line);
+}
+
+.out-block:first-child {
+    border-top: 0;
+}
+
+.out-label {
+    margin: 0 0 8px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.out-empty {
+    margin: 0;
+    color: var(--faint);
+    font-size: 14px;
+}
+
+.token {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.7;
+    word-break: break-all;
+}
+
+.seg-h {
+    color: var(--seg-header);
+}
+
+.seg-p {
+    color: var(--seg-payload);
+}
+
+.seg-s {
+    color: var(--seg-signature);
+}
+
+.dot {
+    color: var(--text);
+}
+
+.no-sig {
+    margin-left: 6px;
+    color: var(--accepted);
+    font-family: var(--sans);
+    font-size: 13px;
+    word-break: normal;
+}
+
+.decoded {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.decoded-part {
+    min-width: 0;
+}
+
+.sig-part {
+    grid-column: 1 / -1;
+}
+
+.part-name {
+    margin: 0 0 4px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.sig-value {
+    margin: 0;
+    color: var(--seg-signature);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    word-break: break-all;
+}
+
+.sig-note {
+    margin: 2px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.json {
+    overflow-x: auto;
+    padding: 8px 0;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--code-bg);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.65;
+}
+
+.json-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 12px;
+    padding: 0 10px;
+}
+
+.jc {
+    white-space: pre;
+}
+
+.jk {
+    color: var(--muted);
+}
+
+.jn {
+    margin-left: auto;
+    color: var(--faint);
+    font-family: var(--sans);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.json-line.changed {
+    background: color-mix(in srgb, var(--accepted) 13%, transparent);
+}
+
+.changed .jn {
+    color: var(--accepted);
+}
+
+.log {
+    display: grid;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.65;
+}
+
+.log li {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr) auto;
+    gap: 12px;
+}
+
+.log .t {
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+}
+
+.log .msg {
+    overflow-wrap: anywhere;
+}
+
+.log .sub {
+    display: block;
+    color: var(--muted);
+}
+
+.log [data-tone="accepted"] {
+    color: var(--accepted);
+}
+
+.log [data-tone="rejected"] {
+    color: var(--rejected);
+}
+
+.target {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.target code {
+    color: var(--seg-signature);
+    font-size: 12.5px;
+    word-break: break-all;
+}
+
+.guesses li {
+    grid-template-columns: 10ch minmax(0, 1fr) auto;
+}
+
+.guess-sig {
+    overflow: hidden;
+    color: var(--faint);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.guess-verdict {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--faint);
+}
+
+.guesses .hit,
+.guesses .hit .guess-sig,
+.guesses .hit .guess-verdict {
+    color: var(--accepted);
+}
+
+.words {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 13px;
+}
+
+.found {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 0;
+    font-size: 14px;
+}
+
+.found code {
+    color: var(--accepted);
+}
+
+.response-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    font-family: var(--mono);
+    font-size: 14px;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: 600;
+}
+
+.status[data-tone="accepted"] {
+    color: var(--accepted);
+}
+
+.status[data-tone="rejected"] {
+    color: var(--rejected);
+}
+
+.verdict-text {
+    margin: 6px 0 10px;
+    font-size: 14.5px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 680px) {
+    .page {
+        padding-top: 32px;
+    }
+
+    .code-pair,
+    .decoded {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .log li {
+        grid-template-columns: 48px minmax(0, 1fr);
+    }
+
+    .log li > :nth-child(3) {
+        grid-column: 2;
+    }
+
+    .guesses li {
+        grid-template-columns: 10ch minmax(0, 1fr) auto;
+    }
+
+    .guesses li > :nth-child(3) {
+        grid-column: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .result[data-tone="running"] svg,
+    .btn .when-running svg {
+        animation: none;
+    }
+}

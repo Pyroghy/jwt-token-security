@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import type { JwtPayload, TokenUser } from "../utils/types.ts";
 import { createApp } from "./app.ts";
 
-// 32 random bytes (256 bits), new each time the server starts. Nothing to guess and nothing in the source.
+// A new random 256-bit secret on every start.
 const FIXED_SECRET = randomBytes(32).toString("hex");
 
 // Reads the user from an HS256 token and rejects anything else.

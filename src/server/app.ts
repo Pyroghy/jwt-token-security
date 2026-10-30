@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import type { LoginBody, TokenUser } from "../utils/types.ts";
 import { findUser } from "../utils/users.ts";
 
-const pagePath = fileURLToPath(new URL("../index.html", import.meta.url));
+const publicDir = fileURLToPath(new URL("../../public", import.meta.url));
 
 export type ReadUser = (token: string) => TokenUser | undefined;
 
@@ -61,10 +61,8 @@ export function createApp(secret: string, readUser: ReadUser, mode: string): Exp
         res.json({ mode });
     });
 
-    // Serves the lab page. Only this one file is exposed.
-    app.get("/", (_req, res) => {
-        res.sendFile(pagePath);
-    });
+    // Serves the lab page. Only files in public/ are exposed.
+    app.use(express.static(publicDir));
 
     return app;
 }

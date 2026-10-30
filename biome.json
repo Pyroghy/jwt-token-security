@@ -32,7 +32,7 @@
         }
     },
     "files": {
-        "include": ["src/**/*", "tests/**/*"],
+        "include": ["src/**/*", "tests/**/*", "public/**/*"],
         "ignore": ["dist", "node_modules"]
     }
 }
