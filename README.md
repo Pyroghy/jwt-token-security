@@ -77,4 +77,4 @@ tests/
 
 ## AI disclosure
 
-Claude helped with early planning, Cursor with part of the implementation, and Claude Code built the browser demo page (`public/`). The architecture and design decisions were mine.
+Claude helped with early planning. Cursor helped with part of the implementation. Claude built the browser demo page. The architecture and design decisions were mine.
